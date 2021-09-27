@@ -272,7 +272,7 @@ def model_train_save(X,y, features_selected,prediction_path,phrase_dict,k,upsamp
     
   if train_on_all == True:
     model = LogisticRegression(solver='saga',max_iter=100000,verbose=0,C=100,penalty='l2',class_weight = 'balanced')
-    calibrated = CalibratedClassifierCV(model, method='sigmoid', n_jobs = -1 ,cv=3)
+    calibrated = CalibratedClassifierCV(model, method='sigmoid', n_jobs = -1 ,cv=5)
     calibrated.fit(X,y)
     best_model = calibrated
     pickle.dump(best_model,open(prediction_path+"/best_model_all.pickle","wb"))
