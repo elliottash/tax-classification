@@ -9,43 +9,6 @@ from sklearn.model_selection import train_test_split
 import joblib 
 from joblib import Parallel, delayed
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
-from sklearn.svm import SVC
-
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.model_selection import cross_val_score
-from sklearn.calibration import calibration_curve
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.offsetbox import AnchoredText
-import matplotlib.lines as mlines
-import matplotlib.transforms as mtransforms
-from sklearn.metrics import confusion_matrix
-from sklearn.calibration import calibration_curve
-import pickle
-
-from collections import Counter
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-import gc 
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import chi2
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
-from sklearn import metrics
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import classification_report
-from sklearn.feature_extraction import text
-os.chdir('/cluster/work/lawecon/Work/lhan/tax_related/')
-
 logging.basicConfig(format='%(asctime)s  %(message)s', 
     datefmt='%y-%m-%d %H:%M:%S', level=logging.INFO)
 
@@ -56,13 +19,13 @@ us_cities = ['montgomery', 'juneau', 'phoenix', 'little_rock', 'sacramento', 'de
 
 
     
-phrase2int = pd.read_pickle('/cluster/work/lawecon/Work/state_laws/data/tax_law_related_data/2-clean/dictionaries/statutes-phrase2int.pkl')              
+phrase2int = pd.read_pickle('/model_input/statutes-phrase2int.pkl')              
 phrase_dict = {value:key for key,value in phrase2int.items()}
 
 
 
-phrase_state= pickle.load(open('/cluster/work/lawecon/Work/lhan/tax_related/phrase_half.pickle','rb'))
-data_lexis = pickle.load(open('/cluster/work/lawecon/Work/lhan/tax_related/df_lexis.pickle','rb'))
+phrase_state= pickle.load(open('/data/phrase_half.pickle','rb'))
+data_lexis = pickle.load(open('/data/df_lexis.pickle','rb'))
 
 logging.info(str(len(phrase_state)))
 
