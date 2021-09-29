@@ -62,4 +62,4 @@ df_all['Phrases'] = phrases_all
 df_all['prediction'] = prediction_all
 
 
-df_all.to_csv('df_sentences.csv')
+df_all.to_csv('/Prediction/df_sentences.csv')
