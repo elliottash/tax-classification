@@ -7,15 +7,10 @@ from nltk.tag.perceptron import PerceptronTagger
 import pandas as pd
 import numpy as np
 
-#address fixed
-
-
-tagger = PerceptronTagger()
 from nltk.tokenize import word_tokenize
-
 import os
-
 from pos_phrases import PosPhrases
+
 phraser = PosPhrases()
 voc = pd.read_pickle('/model_input/phraserloglog-vocab.pkl')
 
@@ -26,6 +21,7 @@ prediction_path = '/Prediction'
 os.chdir(prediction_path)
 tfidf = pickle.load(open('/model_input/tfidf_both_50000.pickle','rb'))
 chi_square_selector = pickle.load(open('/tax_source/chi2_selector_tfidf_30000.pickle','rb'))
+download_file_from_google_drive('1X4dAHsPFabEE4D0HX9O2O1gbaBGBLlxt', '/tax_source/best_model_tfidf_30000.pickle')
 best_model = pickle.load(open('/tax_source/best_model_tfidf_30000.pickle','rb'))
 phrase2int = pd.read_pickle('/model_input/statutes-phrase2int.pkl')         
 phrase_dict = {value:key for key,value in phrase2int.items()}
