@@ -7,7 +7,7 @@ import pickle
 from nltk.tag.perceptron import PerceptronTagger
 import pandas as pd
 import numpy as np
-
+from download import download_file_from_google_drive
 
 
 tagger = PerceptronTagger()
@@ -29,9 +29,13 @@ state_all = []
 year_all = []
 
 
-chi_square_selector = pickle.load(open('/Logistic/chi2_selector_tfidf_2000.pickle','rb'))
-best_model = pickle.load(open('/Logistic/best_model_calibrated_2000.pickle','rb'))
+chi_square_selector = pickle.load(open('/tax_related/Logistic/chi2_selector_tfidf_2000.pickle','rb'))
+best_model = pickle.load(open('/tax_related/Logistic/best_model_calibrated_2000.pickle','rb'))
 
+# Random Forest moddel
+# chi_square_selector = pickle.load(open('/tax_related/RF/chi2_selector_tfidf_10000.pickle','rb'))
+# download_file_from_google_drive('1gUhbxmk213Z4PQugyr0UyBSVFBR1qkAv', '/tax_related/RF/best_model_calibrated_10000.pickle')
+# best_momdel_rf = pickle.load(open('/tax_related/RF/best_model_calibrated_10000.pickle','rb'))
 
 df = pickle.load(open('/data/df_sample1000.pickle','rb'))
 
