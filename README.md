@@ -8,4 +8,4 @@ RF for tax related prediction: https://drive.google.com/file/d/1gUhbxmk213Z4PQug
 
 RF for tax source prediction: https://drive.google.com/file/d/1X4dAHsPFabEE4D0HX9O2O1gbaBGBLlxt/view?usp=sharing
 
-A script for tax related prediction on sample statutes is provided.
+A script for tax related and prediction and tax source classification on sample statutes is provided.
