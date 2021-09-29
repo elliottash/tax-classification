@@ -14,7 +14,6 @@ tagger = PerceptronTagger()
 from nltk.tokenize import word_tokenize
 
 import os
-#need to fix
 
 from pos_phrases import PosPhrases
 phraser = PosPhrases()
@@ -26,7 +25,6 @@ tfidf = pickle.load(open('/model_input/tfidf_both_50000.pickle','rb'))
 
 sentences_all = []
 phrases_all = []
-volids_all = []
 state_all = []
 year_all = []
 
