@@ -4,7 +4,7 @@ This repository accompanies the paper
 
 * Luyang Han, Malka Guillot, and Elliott Ash, "Machine Extraction of Tax Laws from Legislative Texts", Workshop on Natural Legal Language Processing (2021).
 
-The repo contains scripts and trained models for for identifying tax-related documents in legislative text, and further predicting the tax source of those documents (e.g. income tax, sales tax, property tax). 
+The repo contains scripts and trained models for identifying tax-related documents in legislative text, and further predicting the tax source of those documents (e.g. income tax, sales tax, property tax). 
 
 We have replication code for training Logistic Regression and Random Forest models on the annotated statutes corpus. The script for training the classifier for "is tax related" is in the tax_source folder. The script for training the classifier for tax source is in the tax_source folder. 
 
