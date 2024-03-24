@@ -68,7 +68,7 @@ def create_features(data,k,prediction_path,both, phrase_dict, standardize):
 
   # Selecting the vectorization method based on the 'both' parameter
   if both == 1:
-    tfidf = pickle.load(open('/gpfs01/home/lexjr7/tax_expenditure_project/tax_classification/model_input/tfidf_both_50000.pickle','rb'))
+    tfidf = pickle.load(open('path_to_your_tax_classification_folder/model_input/tfidf_both_50000.pickle','rb'))
   elif both == 0:
     tfidf = TfidfVectorizer(max_features=20000,max_df=0.75)
   elif both==-1:
@@ -303,15 +303,15 @@ def main():
   print("Current Working Directory:", os.getcwd())  # Verifies current working directory
   
   path = "tax_related"
-  prediction_path = "/gpfs01/home/lexjr7/tax_expenditure_project/tax_classification/tax_related/RF/Prediction"
+  prediction_path = "path_to_your_tax_classification_folder/tax_related/RF/Prediction"
   os.chdir(path)
   # Creating the prediction path directory if it does not exist
   os.makedirs(prediction_path, exist_ok=True)  
 
   # Loads data and auxiliary files
-  data = pickle.load(open('/gpfs01/home/lexjr7/tax_expenditure_project/tax_classification/data/df_lexis.pickle',"rb")) # a list   
+  data = pickle.load(open('path_to_your_tax_classification_folder/data/df_lexis.pickle',"rb")) # a list   
   logging.info("Data loaded")    
-  phrase2int = pd.read_pickle('/gpfs01/home/lexjr7/tax_expenditure_project/tax_classification/model_input/statutes-phrase2int.pkl')              
+  phrase2int = pd.read_pickle('path_to_your_tax_classification_folder/model_input/statutes-phrase2int.pkl')              
   phrase_dict = {value:key for key,value in phrase2int.items()}
   stop_words = text.ENGLISH_STOP_WORDS
           
