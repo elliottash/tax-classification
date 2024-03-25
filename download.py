@@ -1,34 +1,49 @@
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+from google_auth_oauthlib.flow import InstalledAppFlow
+import io
 
-#taken from this StackOverflow answer: https://stackoverflow.com/a/39225039
-import requests
+# Define the scopes required for the Google Drive API
+SCOPES = ['https://www.googleapis.com/auth/drive']
 
-def download_file_from_google_drive(id, destination):
-    URL = "https://docs.google.com/uc?export=download"
+def service_account_login():
+    """
+    Authenticate and create a service object for Google Drive API.
+    Returns:
+        service: Authenticated Google Drive API service.
+    """
+    # Load the OAuth2 credentials from the client secrets file
+    flow = InstalledAppFlow.from_client_secrets_file(
+        'path_to_your_client_secret_json_file', SCOPES)
+    creds = flow.run_local_server(port=0)
+    return build('drive', 'v3', credentials=creds)
 
-    session = requests.Session()
+def download_file(service, file_id, file_path):
+    """
+    Download a file from Google Drive.
+    Parameters:
+        service: Authenticated Google Drive service.
+        file_id (str): ID of the file to be downloaded.
+        file_path (str): Local path to save the downloaded file.
+    """
+    # Request to download the file
+    request = service.files().get_media(fileId=file_id)
+    fh = io.FileIO(file_path, 'wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print(f"Download of {file_path} {int(status.progress() * 100)}% complete.")
 
-    response = session.get(URL, params = { 'id' : id }, stream = True)
-    token = get_confirm_token(response)
+# Authenticate and create the Google Drive API service
+service = service_account_login()
 
-    if token:
-        params = { 'id' : id, 'confirm' : token }
-        response = session.get(URL, params = params, stream = True)
+# File IDs and paths (replace with your own paths and file IDs)
+tax_source_id = '1X4dAHsPFabEE4D0HX9O2O1gbaBGBLlxt'
+tax_related_id = '1gUhbxmk213Z4PQugyr0UyBSVFBR1qkAv'
+tax_source_path = 'path_where_you_want_to_save_tax_source_file'
+tax_related_path = 'path_where_you_want_to_save_tax_related_file'
 
-    save_response_content(response, destination)    
-
-def get_confirm_token(response):
-    for key, value in response.cookies.items():
-        if key.startswith('download_warning'):
-            return value
-
-    return None
-
-def save_response_content(response, destination):
-    CHUNK_SIZE = 32768
-
-    with open(destination, "wb") as f:
-        for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
-                
-                
+# Download the files
+download_file(service, tax_source_id, tax_source_path)
+download_file(service, tax_related_id, tax_related_path)
