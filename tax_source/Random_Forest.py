@@ -357,7 +357,7 @@ def main():
         if phrase_dict[j] in stop_words:
           data['phrase'].values[i] = list(filter((j).__ne__, data['phrase'].iloc[i]))
           
-  k=30000
+  k=10000
     
   # Extract features  
   features_return = create_features(data=data,k=k,phrase_dict = phrase_dict,prediction_path=prediction_path)          
